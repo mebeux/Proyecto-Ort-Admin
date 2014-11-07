@@ -50,3 +50,5 @@ Questo la caccerá per ogni villa, infin che la avea rimesso nell inferno, ove i
 <p>
 </div>
 <div id="mascara"></div>
+
+<a href="#" class="btn">algo</a>

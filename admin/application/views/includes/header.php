@@ -5,6 +5,7 @@
 	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/jquery.js"></script>
 	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/modal.js"></script>
+        <script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/plan.js"></script>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>public/css/estilo.css" />
 </head>
 <body>
@@ -24,15 +25,12 @@
                                     echo ">".anchor("periodo/index","Períodos de examen"); ?></li>
 			<li <?php if ($op == "escala") echo "class=\"active\""; 
                                     echo ">".anchor("escala/index","Escala de notas"); ?></li>
-			<li <?php if ($op == "usuarios") echo "class=\"active\""; ?>>
-                                    <a href="#">Usuarios</a></li>
-			<li <?php if ($op == "herramientas") echo "class=\"active\""; ?>>
-                            <a href="#">Herramientas</a></li>
-                       <!-- 
-			<li><a href="#">Opción 7</a></li>
-			<li><a href="#">Opción 8</a></li>
-			<li><a href="#">Opción 9</a></li>
-			<li><a href="#">Opción 10</a></li>-->
+			<li <?php if ($op == "usuarios") echo "class=\"active\""; 
+                                    echo ">".anchor("usuario/index","Usuarios"); ?></li>
+			<li <?php if ($op == "previas") echo "class=\"active\""; 
+                                    echo ">".anchor("previa/index","Previas"); ?></li>
+			<li <?php if ($op == "salir") echo "class=\"active\""; ?>>
+                            <a href="#">Salir</a></li>
 		</ul>
 </nav>
 </div>

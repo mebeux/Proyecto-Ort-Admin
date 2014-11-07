@@ -40,11 +40,11 @@ body {
 	color:white;
 }
 
-.active {
+#main-menu .active {
 	background:LightGray;
 }
 
-.active a {
+#main-menu .active a {
    color:#484848;
 }
 
@@ -76,7 +76,11 @@ body {
 	background:Orange; /*LightGray;*/
 	text-align:center;
 	padding:5px 7px;
-	border-bottom:1px solid DarkOrange; /*DarkGray;*/
+	border-bottom:2px solid DarkOrange; /*DarkGray;*/
+}
+
+#cuerpo #menu2 .active {
+    font-weight:bold;
 }
 
 #cuerpo #contenido {
@@ -129,8 +133,19 @@ body {
 	border:1px solid DarkGray;
 }
 
+.gris {
+    color:gray;
+}
+
+a.btn {
+    text-decoration:none;
+    /*padding:3px 10px;*/
+    display:block;
+    text-align:center;
+}
+
 .btn {
-	border:1px solid orange;
+    border:1px solid orange;
     background:orange;
     color:white;
 }
@@ -144,6 +159,23 @@ body {
 .tabla {
 	border-collapse:collapse;
     margin-top:15px;
+}
+
+.tabla .encabezado {
+    background:#484848;
+    color:white;
+}
+.tabla .formulario {
+    background:#F0F0F0;
+    color:black;
+}
+
+
+.tabla .encabezado-expandir {
+    background:#484848;
+    color:white;
+    float: end;
+    
 }
 
 .ancho1 {
@@ -161,17 +193,24 @@ body {
 /******** Tablas *************/
 
 .tabla {
-	border-bottom:1px solid DarkGray;
+    border-bottom:1px solid DarkGray;
+    border-radius:5px;
 }
 
 .tabla th {
-	background:#585858;
+    background:#585858;
     color:white;
     padding:3px;
 }
 
-.tabla tr:nth-child(even) {
-	background:#F0F0F0; 
+.tabla  tr {
+	border-bottom: 1px solid #ccc;
+}
+
+
+
+.tabla tr > td:first-of-type {
+    padding-left:1em;
 }
 
 /* ********* Textos ********** */
@@ -222,5 +261,14 @@ body {
 	/*box-shadow:5px 5px 2px black;*/ 
 }
 
-
+#contenido h1 {
+    background:LightGray;
+    width:100%;
+    text-align:center;
+    font-size:12pt;
+    color:White;
+    text-align:left;
+    padding:5px 25px;
+    border-radius:10px;
+}
 

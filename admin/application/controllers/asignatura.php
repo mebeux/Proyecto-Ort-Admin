@@ -9,6 +9,13 @@ class Asignatura extends CI_Controller {
         $this->load->view("template",$data);
     }
     
+     public function obtener_previas_ajax($idAsignatura) {
+         $this->load->model("asignatura_m");
+         $asignatura=  $this->asignatura_m->get($idAsignatura);
+         $asignatura->get_previas_ajax();
+         
+     }
+    
 }
 
 ?>

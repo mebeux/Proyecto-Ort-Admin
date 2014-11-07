@@ -1,0 +1,77 @@
+<?php
+
+class Plan_m extends CI_Model {
+    
+    public $id;
+    
+    public function get($id) {
+        
+    }
+    
+    
+    /*
+     * @desc Lista de estudiantes que tienen por lo menos una aprobación
+     *              de asignatura 
+     * @return arreglo que incluye la ID del estuidante, y la ID del curso o 
+     *          examen 
+    */
+    public function get_aprobaron_asignatura() {
+        
+        $sql = "SELECT id_estudiante, \"CURSO\" AS tipo, id_asignatura, 
+                    anio_lectivo AS periodo
+                FROM cursos cu
+                INNER JOIN cursos_estudiantes ec
+                ON cu.id_curso = ec.id_curso
+                WHERE id_plan = ? AND aprobado = TRUE";
+        
+        $cmd = $this->db->query($sql,$param);
+        $tabla = $cmd->result_array();
+                
+        $sql =  "SELECT id_estudiante, \"EXAMEN\" AS tipo, id_asignatura, 
+                    periodo AS periodo 
+                FROM examenes e
+                INNER JOIN examenes_estudiantes ee
+                ON e.id_examen = ee.id_examen
+                WHERE id_plan=? AND aprobado = TRUE";
+
+        $cmd = $this->db->query($sql,$param);       
+        $param = array($this->id);         
+        $tabla = array_merge($tabla,$cmd->result_array());
+            
+        return $tabla;
+
+    }
+    
+    /*
+     * @desc Lista de estudiantes que tienen por lo menos una previa sin aprobar 
+     * @return arreglo que incluye la ID del estuidante, y la ID del curso o 
+     *          examen 
+    */
+    public function get_previas_sin_aprobar() {
+        
+        $tabla = $this->get_aprobaron_asignatura();
+        $salida = array();
+        $this->load->asignatura_m;
+        $this->load->examen_m;
+        
+        foreach($tabla as $fila) {
+            if (strtolower($fila["tipo"])=="curso") {
+               
+                $curso = $this->asignatura_m->get($fila["id_curso"]);
+                
+                
+            } else {
+                
+            }
+        }
+        
+        return $salida;
+    }
+    
+       var $id;
+    var $previas = array();
+    
+ 
+    
+    
+}
