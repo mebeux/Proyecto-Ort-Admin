@@ -13,7 +13,7 @@ function buscarAsignatura() {
        var anio=$(this).attr("data-anio");
        var periodo = $("#id_periodo").val();
        if(id.slice(1,3)!="UP"){
-       var sitio = $("#urlBase").val()+"asignatura/ver/"+id+"/"+plan+"/"+anio+"/"+periodo+"/2/1/";
+       var sitio = $("#urlBase").val()+"asignatura/ver_por_periodo/"+id+"/"+plan+"/"+anio+"/"+periodo+"/2/1/";
 
         $.ajax({
             url:sitio,
@@ -23,7 +23,7 @@ function buscarAsignatura() {
             error:errorAsignatura
         });
         }else{
-            var sitio = $("#urlBase").val()+"asignatura/ver/"+id+"/"+plan+"/"+anio+"/"+periodo+"/2/2/";
+            var sitio = $("#urlBase").val()+"asignatura/ver_por_periodo/"+id+"/"+plan+"/"+anio+"/"+periodo+"/2/2/";
 
         $.ajax({
             url:sitio,

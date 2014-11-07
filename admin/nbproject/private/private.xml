@@ -4,15 +4,34 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/xampp/htdocs/admin/public/js/plan.js</file>
-            <file>file:/D:/xampp/htdocs/admin/public/css/estilo.css</file>
             <file>file:/D:/xampp/htdocs/admin/application/controllers/asignatura.php</file>
-            <file>file:/D:/xampp/htdocs/admin/index.php</file>
-            <file>file:/D:/xampp/htdocs/admin/application/controllers/periodo.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/models/plan_m.php</file>
             <file>file:/D:/xampp/htdocs/admin/application/views/periodos/ver_asignaturas.php</file>
-            <file>file:/D:/xampp/htdocs/admin/public/js/estilo.js</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/edicion/index.php</file>
             <file>file:/D:/xampp/htdocs/admin/application/views/asignatura/ver_json.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/edicion/ver_anios_plan_edicion.php</file>
             <file>file:/D:/xampp/htdocs/admin/application/models/asignatura_m.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/menu.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/edicion.php</file>
+            <file>file:/D:/xampp/htdocs/admin/system/core/Loader.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/previa/menu.php</file>
+            <file>file:/D:/xampp/htdocs/admin/public/css/estilo.css</file>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/periodo.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/models/edicion_m.php</file>
+            <file>file:/D:/xampp/htdocs/admin/public/js/estilo.js</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/edicion/ver_asignaturas.php</file>
             <file>file:/D:/xampp/htdocs/admin/application/models/periodo_m.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/periodos/ver_periodo.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/edicion/menu.php</file>
+            <file>file:/D:/xampp/htdocs/admin/index.php</file>
+            <file>file:/D:/xampp/htdocs/admin/system/core/CodeIgniter.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/periodos/editar_periodo.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/plan.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/periodos/menu.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/index.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/periodos/index.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/ver_asignaturas.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/models/edicion_asignatura_m.php</file>
             <file>file:/D:/xampp/htdocs/admin/public/js/periodo.js</file>
         </group>
     </open-files>

@@ -4,8 +4,10 @@ class Edicion_asignatura_m extends CI_Model {
 
     public $id;
     public $anio;
+    public $anio_asignatura;
     public $id_asignatura;
     public $id_plan;
+    public $teorica;
     // nombre de la asignatura
     public $nombre;
     private $id_previa;
@@ -16,12 +18,30 @@ class Edicion_asignatura_m extends CI_Model {
         $this->db->where("id_asignatura", $idAsignatura);
         $this->db->where("id_plan", $idPlan);
         $this->db->where("anio_edicion", $anio);
+        $this->db->order_by("unidad_proyecto", "desc"); 
         $cmd = $this->db->get("edicion");
 
         if ($cmd->num_rows > 0) {
             $fila = $cmd->row();
             $salida = $this->_cargar_datos($fila);
             return $salida;
+        }
+        return NULL;
+    }
+    
+    public function get_todas_por_edicion($idPlan, $anio) {
+
+        $this->db->where("id_plan", $idPlan);
+        $this->db->where("anio_edicion", $anio);
+        $this->db->order_by("unidad_proyecto", "asc");
+        $cmd = $this->db->get("edicion");
+        $salida=array();
+        if ($cmd->num_rows > 0) {
+            foreach ($cmd->result() as $fila){   
+            $row = $this->_cargar_datos($fila);
+            array_push($salida, $row);
+        }
+        return $salida;
         }
         return NULL;
     }
@@ -77,6 +97,8 @@ class Edicion_asignatura_m extends CI_Model {
         $salida->id_asignatura = $fila->id_asignatura;
         $salida->nombre = $fila->nombre_edicion;
         $salida->anio = $fila->anio_edicion;
+        $salida->teorica = $fila->teorica_edicion;
+        $salida->anio_asignatura = $fila->anio_asignatura;
         return $salida;
     }
 
