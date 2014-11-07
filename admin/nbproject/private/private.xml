@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/asignatura.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/models/plan_m.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/config/config.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/usuario.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/config/database.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/template.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/menu.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/models/asignatura_m.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/controllers/plan.php</file>
+            <file>file:/D:/xampp/htdocs/admin/public/js/modal.js</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/ver_asignaturas_plan.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/index.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/periodos/index.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/plan/asignatura_datos.php</file>
+            <file>file:/D:/xampp/htdocs/admin/application/views/includes/header.php</file>
+        </group>
+    </open-files>
+</project-private>

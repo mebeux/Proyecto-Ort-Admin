@@ -1,0 +1,224 @@
+
+/********** Maquetación general de la página **********/ 
+
+body {
+	font-family:Arial;
+    font-size:10pt;
+}
+
+
+#cabecera {
+	display:bock;
+	clear:both;
+}
+
+#cabecera nav {
+	display:table;
+	width:100%;
+	background:#484848;
+	border-collapse:collapse;
+}
+
+
+#cabecera nav ul {
+	display:table-row;
+
+}
+
+#cabecera nav ul li {
+	display:table-cell;
+	margin:0;
+	padding:5px;
+}
+
+
+#main-menu li a {
+	display:block;
+	min-width:100px;
+	text-decoration:none;
+	text-align:center;
+	color:white;
+}
+
+.active {
+	background:LightGray;
+}
+
+.active a {
+   color:#484848;
+}
+
+#cuerpo {
+	display:block;
+	clear:both;
+	margin-top:30px;
+}
+
+#cuerpo #menu2 {
+	border:1px solid black;
+	border-radius:3px;
+	width:15%;
+	float:left;
+	margin-top:80px;
+	margin-right:20px;
+}
+
+#cuerpo #menu2 ul {
+	list-style-type:none;
+}
+
+#cuerpo #menu2 a {
+	color:black;
+    text-decoration:none;
+}
+
+#cuerpo #menu2 #titulo {
+	background:Orange; /*LightGray;*/
+	text-align:center;
+	padding:5px 7px;
+	border-bottom:1px solid DarkOrange; /*DarkGray;*/
+}
+
+#cuerpo #contenido {
+	float:left;
+	width:65%;
+}
+
+/********** Márgenes para bloques ************/
+
+.centro {
+	margin-left:auto;
+	margin-right: auto;
+}
+
+.margen1 {
+	margin-left:30%;
+}
+
+
+.margen2 {
+	margin-left:20%;
+}
+
+.margen4 {
+	margin-left:10%;
+}
+
+/* ************* Formularios ************ */
+
+.form {
+	display:table;
+}
+
+.form p {
+	display:table-row;
+}
+
+.form label {
+	display:table-cell;
+	padding-right:7px;
+    padding-bottom:2px;
+}
+
+.form input, .form select {
+	display:table-cell;
+    padding-bottom:2px;
+}
+
+.form input[type="text"], .form select {
+	border:1px solid DarkGray;
+}
+
+.btn {
+	border:1px solid orange;
+    background:orange;
+    color:white;
+}
+
+.btn-gris {
+	border:1px solid LightGray;
+    background:LightGray;
+    color:black;
+}
+
+.tabla {
+	border-collapse:collapse;
+    margin-top:15px;
+}
+
+.ancho1 {
+	min-width:80%;
+}
+
+.ancho2 {
+	min-width:60%;
+}
+
+.ancho3 {
+	min-width:40%;
+}
+
+/******** Tablas *************/
+
+.tabla {
+	border-bottom:1px solid DarkGray;
+}
+
+.tabla th {
+	background:#585858;
+    color:white;
+    padding:3px;
+}
+
+.tabla tr:nth-child(even) {
+	background:#F0F0F0; 
+}
+
+/* ********* Textos ********** */
+
+.txt-centro {
+	text-align:center;
+}
+
+/* ********** Elemento panel ********* */
+
+.panel {
+	margin-top:15px;
+	border:1px solid gray;
+	border-radius:5px;	
+}
+
+.panel-titulo {
+	background:gray;
+    color:white;
+    padding:4px;
+}
+
+.panel-cuerpo {
+	padding:5px;
+}
+
+/* ******** Ventanas modales ******* */
+
+#mascara {
+	position:absolute;
+	z-index:9000;
+	background-color:#000;
+	display:none;
+}
+
+.dialogo {
+	position:fixed;
+    width:440px;
+    height:200px;
+    display:none;
+    background:white;
+    z-index:9999;
+    padding:20px;
+    border:2px solid black;
+    border-radius:5px;
+	/*box-shadow:5px 5px 2px black;*/ 
+}
+
+
+
