@@ -10,7 +10,7 @@
         <?php
         for ($i = 1; $i <= $plan->get_anios(); $i++) {
 
-            echo "<tr  class=\"encabezado\"><td colspan=\"3\"><a data-valor=\"$i\" href= #>Año: " . $i . "</a></td></tr>\n";
+            echo "<tr  class=\"encabezado-anioplan\"><td colspan=\"3\"><a data-valor=\"$i\" href= #>Año: " . $i . "</a></td></tr>\n";
         
             foreach ($asignaturas as $asignatura) {
             

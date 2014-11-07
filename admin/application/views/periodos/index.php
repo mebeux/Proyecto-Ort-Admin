@@ -6,7 +6,7 @@
           $fila="";
         foreach ($periodos as $periodo) {
            
-            $fila.= " <tr class=\"fila\" style=\"display: table-row;\" ><td class=\"txt-centro\">" . substr($periodo->periodo, -4, 2) . "</td>"
+            $fila.= " <tr class=\"fila\" style=\"display: table-row;\" ><td class=\"txt-centro\">" . substr($periodo->periodo, 4) . "</td>"
                . "<td class=\"txt-centro\">" . $periodo->anio . "</td>" 
                . "<td class=\"txt-centro\">";
                if($periodo->unidad_proyecto==1){

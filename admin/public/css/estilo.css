@@ -64,13 +64,17 @@ body {
 }
 
 #cuerpo #menu2 ul {
+        padding:5px;
 	list-style-type:none;
+        list-style-position: inside;
 }
+
 
 #cuerpo #menu2 a {
 	color:black;
     text-decoration:none;
 }
+
 
 #cuerpo #menu2 #titulo {
 	background:Orange; /*LightGray;*/
@@ -82,6 +86,19 @@ body {
 #cuerpo #menu2 .active {
     font-weight:bold;
 }
+
+#cuerpo #menu2 .titulo { 
+    font-weight:bold;
+    background:#e6e6e6;
+    padding:5px;
+}
+
+
+#cuerpo #menu2 .submenu a {
+    color:black;
+    text-decoration:none;
+}
+
 
 #cuerpo #contenido {
 	float:left;
@@ -191,7 +208,6 @@ a.btn {
     padding-left:1em;
 }
 */
-
 .tbl {
     border-collapse:collapse;
     margin-top:15px;
@@ -226,7 +242,37 @@ a.btn {
     border-collapse:collapse;
     margin-top:15px;
 }
+.tbl-acordeon tr.encabezado-anio {
+    background:#F5F5F5;
+    color:#696969;
+    border-bottom:1px solid black;
+    display: none;
+}
 
+.tbl-acordeon .encabezado-anio td {
+    padding:10px 10px;
+}
+
+.tbl-acordeon .encabezado-anio a {
+    color:#696969;
+    /*font-weight: bold;*/
+}
+
+.tbl-acordeon tr.encabezado-anioplan {
+    background:#E5E4E2;
+    color:black;
+    border-bottom:1px solid black;
+  
+}
+
+.tbl-acordeon .encabezado-anioplan td {
+    padding:10px 10px;
+}
+
+.tbl-acordeon .encabezado-anioplan a {
+    color:black;
+    /*font-weight: bold;*/
+}
 
 .tbl-acordeon tr.encabezado {
     background:#E5E4E2;
@@ -251,7 +297,6 @@ a.btn {
 .tbl-acordeon .fila td {
     padding-left:1em;
 }
-
 /* ********* Textos ********** */
 
 .txt-centro {
@@ -276,6 +321,18 @@ a.btn {
 	padding:5px;
 }
 
+.aviso {
+    border:1px solid goldenrod;
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    background:#FFFF99;
+    padding:15px;
+    color:goldenrod;
+    border-radius:5px;
+    display:none;
+}
+
 /* ******** Ventanas modales ******* */
 
 #mascara {
@@ -290,7 +347,7 @@ a.btn {
 .dialogo {
     position:fixed;
     width:440px;
-    height:620px;
+    height:820px;
     display:none;
     background:white;
     z-index:9999;

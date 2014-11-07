@@ -24,7 +24,7 @@ class Plan extends CI_Controller {
             $data["js"] = array("plan");
             $data["asignaturas"] = $plan->get_asignaturas();
             $data["vista"] = array("plan/ver_asignaturas", "planes");
-            $data["menu"] = array("plan/menu", "ver");
+            $data["menu"] = array("plan/menu", "inicio");
             $this->load->view("template", $data);
         }    
     }

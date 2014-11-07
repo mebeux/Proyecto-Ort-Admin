@@ -7,8 +7,10 @@ class Previa extends CI_Controller {
         $data["vista"] = array("previa/index","previas");
         $data["menu"] = array("previa/menu","inicio");
         
+        $data["js"] = array("previa");
+        
         $this->load->model("plan_m");
-        $data["planes"] = $this->plan_m->get_todo();
+        $data["planes"] = $this->plan_m->get_todos();
         
         $this->load->view("template",$data);
     }

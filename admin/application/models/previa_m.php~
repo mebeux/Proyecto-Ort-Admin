@@ -5,7 +5,6 @@ class Previa_m extends CI_Model {
     var $id;
     var $id_asignatura;
     var $id_plan;
- 	var $nombre;
     
     // arreglo que contiene las ID asignaturas de las previas
     var $previas = array();
@@ -17,10 +16,9 @@ class Previa_m extends CI_Model {
     
     public function get_por_asignatura($idAsignatura,$idPlan) {
 
-        $this->db->select("id_previa, asignatura.nombre_asignatura");
+        $this->db->select("id_previa");
         $this->db->where("id_asignatura",$idAsignatura);
         $this->db->where("id_plan",$idPlan);
- $this->db->join('asignaturas', 'asignaturas.id_asignatura = plan_asignaturas.id_asignatura');
         $cmd=$this->db->get("plan_asignaturas");
         
         if ($cmd->num_rows>0) {
@@ -32,15 +30,12 @@ class Previa_m extends CI_Model {
     
     public function get($id) {
     
-        $sql = "SELECT p.id_previa AS id, p.id_asignatura,
-                    id_asignatura_previa AS id_previa,
-                    asig.nombre_asignatura as nombre_previa
-                    FROM previas p
-                    INNER JOIN previas_asignaturas a
-                    ON p.id_previa = a.id_previa
-                    INNER JOIN asignaturas asig
-                    ON a.id_asignatura_previa = asig.id_asignatura
-                    WHERE p.id_previa = ?";
+        $sql = "SELECT p.id_previa AS id, id_asignatura,
+                    id_asignatura_previa AS id_previa 
+                FROM previas p
+                INNER JOIN previas_asignaturas a
+                ON p.id_previa = a.id_previa
+                WHERE p.id_previa = ?";
         
         $param = array($id);
         
@@ -58,11 +53,10 @@ class Previa_m extends CI_Model {
                 if ($flag) {
                     $salida->id = $fila->id;
                     $salida->id_asignatura = $fila->id_asignatura;
-					$salida->nombre=$fila->nombre_previa;
                     $flag = FALSE;
                 }
               
-                $aux[] = array("id"=>$fila->id_previa, "nombre"=>$fila->nombre_previa);
+                $aux[] = $fila->id_previa;
             
             }
             

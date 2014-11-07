@@ -40,11 +40,11 @@ body {
 	color:white;
 }
 
-.active {
+#main-menu .active {
 	background:LightGray;
 }
 
-.active a {
+#main-menu .active a {
    color:#484848;
 }
 
@@ -64,20 +64,41 @@ body {
 }
 
 #cuerpo #menu2 ul {
+        padding:5px;
 	list-style-type:none;
+        list-style-position: inside;
 }
+
 
 #cuerpo #menu2 a {
 	color:black;
     text-decoration:none;
 }
 
+
 #cuerpo #menu2 #titulo {
 	background:Orange; /*LightGray;*/
 	text-align:center;
 	padding:5px 7px;
-	border-bottom:1px solid DarkOrange; /*DarkGray;*/
+	border-bottom:2px solid DarkOrange; /*DarkGray;*/
 }
+
+#cuerpo #menu2 .active {
+    font-weight:bold;
+}
+
+#cuerpo #menu2 .titulo { 
+    font-weight:bold;
+    background:#e6e6e6;
+    padding:5px;
+}
+
+
+#cuerpo #menu2 .submenu a {
+    color:black;
+    text-decoration:none;
+}
+
 
 #cuerpo #contenido {
 	float:left;
@@ -129,8 +150,19 @@ body {
 	border:1px solid DarkGray;
 }
 
+.gris {
+    color:gray;
+}
+
+a.btn {
+    text-decoration:none;
+    /*padding:3px 10px;*/
+    display:block;
+    text-align:center;
+}
+
 .btn {
-	border:1px solid orange;
+    border:1px solid orange;
     background:orange;
     color:white;
 }
@@ -141,10 +173,6 @@ body {
     color:black;
 }
 
-.tabla {
-	border-collapse:collapse;
-    margin-top:15px;
-}
 
 .ancho1 {
 	min-width:80%;
@@ -160,12 +188,14 @@ body {
 
 /******** Tablas *************/
 
+/*
 .tabla {
-	border-bottom:1px solid DarkGray;
+    border-bottom:1px solid DarkGray;
+    border-radius:5px;
 }
 
 .tabla th {
-	background:#585858;
+    background:#585858;
     color:white;
     padding:3px;
 }
@@ -174,6 +204,69 @@ body {
 	background:#F0F0F0; 
 }
 
+.tabla tr > td:first-of-type {
+    padding-left:1em;
+}
+*/
+.tbl {
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+
+.tbl tr.encabezado {
+    background:#E5E4E2;
+    color:black;
+    border-bottom:1px solid black;
+}
+
+.tbl .encabezado td {
+    padding:10px 10px;
+}
+
+.tbl .encabezado a {
+    color:black;
+    /*font-weight: bold;*/
+}
+
+.tbl tr.fila {
+    border-bottom:1px solid LightGray;
+   
+}
+
+.tbl .fila td {
+    padding-left:1em;
+}
+
+.tbl-acordeon {
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+
+.tbl-acordeon tr.encabezado {
+    background:#E5E4E2;
+    color:black;
+    border-bottom:1px solid black;
+}
+
+.tbl-acordeon .encabezado td {
+    padding:10px 10px;
+}
+
+.tbl-acordeon .encabezado a {
+    color:black;
+    /*font-weight: bold;*/
+}
+
+.tbl-acordeon tr.fila {
+    border-bottom:1px solid LightGray;
+    display:none;
+}
+
+.tbl-acordeon .fila td {
+    padding-left:1em;
+}
 /* ********* Textos ********** */
 
 .txt-centro {
@@ -198,6 +291,18 @@ body {
 	padding:5px;
 }
 
+.aviso {
+    border:1px solid goldenrod;
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    background:#FFFF99;
+    padding:15px;
+    color:goldenrod;
+    border-radius:5px;
+    display:none;
+}
+
 /* ******** Ventanas modales ******* */
 
 #mascara {
@@ -207,8 +312,10 @@ body {
 	display:none;
 }
 
+.arrastrable {}
+
 .dialogo {
-	position:fixed;
+    position:fixed;
     width:440px;
     height:200px;
     display:none;
@@ -217,8 +324,23 @@ body {
     padding:20px;
     border:2px solid black;
     border-radius:5px;
-	/*box-shadow:5px 5px 2px black;*/ 
+    box-shadow:15px 15px 10px #888888;
+}
+
+.lst-dos-filas{
+    list-style-type: none;
+    
 }
 
 
+#contenido h1 {
+    background:LightGray;
+    width:100%;
+    text-align:center;
+    font-size:12pt;
+    color:White;
+    text-align:left;
+    padding:5px 25px;
+    border-radius:10px;
+}
 

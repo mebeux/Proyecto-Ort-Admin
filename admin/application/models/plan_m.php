@@ -81,6 +81,7 @@ class Plan_m extends CI_Model {
                                  $valor,
                                  $edicion->get_nombre());
             }
+            
         }    
             
         return $salida;

@@ -6,7 +6,9 @@ $(document).ready(function() {
     $(".dialogo .cerrar").click(cerrarModal);
     $("#mascara").click(cerrarModal2);
 
-    $(".tbl-acordeon .encabezado a").click(expandirFilas);
+    $(".tbl-acordeon .encabezado a").click(expandirFilasAnios);
+     $(".tbl-acordeon .encabezado-anio a").click(expandirFilas);
+      $(".tbl-acordeon .encabezado-anioplan a").click(expandirFilas);
 });
 
 /*
@@ -70,7 +72,28 @@ function cerrarModal2() {
     $(this).hide();
     $(".dialogo").hide();
 }
+function expandirFilasAnios() {
 
+    var plan = $(this).attr("data-valor");
+    $(".encabezado-anio").each(function() {
+        var ayp=$(this).data("compuesto");
+         if ($(this).data("valor") == plan) {
+        if ($(this).css("display") == "none") {
+            $(this).show();
+        } else {
+            $(this).hide();
+            cerrarFilas(ayp);
+        }
+         }
+    });
+}
+function cerrarFilas(ayp) {
+    $(".fila." + ayp).each(function() {
+       
+            $(this).hide();
+        
+    });
+    }
 function expandirFilas() {
 
     var anio = $(this).attr("data-valor");
