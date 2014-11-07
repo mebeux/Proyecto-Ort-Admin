@@ -21,10 +21,10 @@ class Plan extends CI_Controller {
         // CORREGIR
         if (!empty($plan)) {
             $data["plan"] = $plan;
-            
+            $data["js"] = array("plan");
             $data["asignaturas"] = $plan->get_asignaturas();
             $data["vista"] = array("plan/ver_asignaturas", "planes");
-            $data["menu"] = array("plan/menu", "inicio");
+            $data["menu"] = array("plan/menu", "ver");
             $this->load->view("template", $data);
         }    
     }

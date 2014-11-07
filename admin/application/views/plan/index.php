@@ -1,7 +1,5 @@
 <div id="contenido">
     <h1>Planes</h1>
-
-
     <table class="tabla centro ancho2">
         <tr><th>plan</th><th>años</th><th>ver</th></tr>
         <?php

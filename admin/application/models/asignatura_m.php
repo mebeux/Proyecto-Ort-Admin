@@ -3,42 +3,66 @@
 class Asignatura_m extends CI_Model {
 
     public $id;
+    public $id_plan;
+    private $id_escala;
+    private $id_previa;
     public $nombre;
+    public $anio;
     public $previas = null;
+    public $escala = null;
     
- public function traer($idAsignatura) {
+   public function get_previas(){
+
+       if (is_null($this->previas)) {
+            $this->_get_previas();
+        }
+
+        return $this->previas;
         
-        $aux = new asignatura_m();
-        
-        $this->db->where("id_asignatura",$id_asignatura);
-        $cmd  = $this->db->get("asignaturas");
-        $fila = $cmd->row_array();
-        $aux->nombre = $fila["nombre_asignatura"];
-        $aux->id = $fila["id_asignatura"];
-        return $aux;
-       
+    }
+ 
+    public function get_escala() {
+    
+        if (is_null($this->escala)) {
+            $this->_get_escala();
+        }
+        return $this->escala;
     }
     
+    public function get($id,$idPlan) {
 
-    public function get($id) {
-
-        $this->db->where("id_asignatura", $id);
-        $cmd = $this->db->get("asignaturas");
-
+        $sql = "SELECT a.id_asignatura AS id_asignatura,id_plan,nombre_asignatura,
+                    anio_asignatura,id_escala,id_previa 
+                FROM asignaturas a
+                INNER JOIN plan_asignaturas p
+                ON a.id_asignatura = p.id_asignatura
+                WHERE a.id_asignatura=? AND id_plan=?";
+        
+        $param = array($id,$idPlan);
+        
+        $cmd = $this->db->query($sql,$param);
+        
         if ($cmd->num_rows > 0) {
+            
             $fila = $cmd->row();
             $salida = new Asignatura_m();
             $salida->id = $fila->id_asignatura;
+            $salida->id_plan = $fila->id_plan;
+            $salida->id_previa = $fila->id_previa;
+            $salida->id_escala = $fila->id_escala;
+            $salida->anio = $fila->anio_asignatura;
+            
             $salida->nombre = $fila->nombre_asignatura;
             return $salida;
         }
 
         return null;
     }
+    
 
     /*
-     * @desc determina si el estuidante ha aprobado algún examen correspondiente
-     * a la asignatura
+     * @desc determina si el estudiante ha aprobado el curso
+     *  la asignatura
      * @return arreglo que contiene el estado del resultado 
      *           y el número de acta en caso de aprobación
      */
@@ -50,9 +74,10 @@ class Asignatura_m extends CI_Model {
                  INNER JOIN cursos_estudiantes al 
                  ON ac.id_curso = al.id_curso 
                  WHERE id_estudiante=? AND id_asignatura = ? 
+                 AND id_plan = ?
                  AND aprobado=TRUE";
 
-        $param = array($idEstudiante, $this->id);
+        $param = array($idEstudiante, $this->id, $this->id_plan);
         $cmd = $this->db->query($sql, $param);
 
         if ($cmd->num_rows > 0) {
@@ -97,10 +122,11 @@ class Asignatura_m extends CI_Model {
                   FROM examenes ac 
                   INNER JOIN examenes_estudiantes al 
                   ON ac.id_examen = al.id_examen 
-                  WHERE id_estudiante=? AND id_asignatura = ? 
+                  WHERE id_estudiante=? AND id_asignatura = ?
+                    AND id_plan = ?
                   AND aprobado=TRUE";
 
-        $param = array($idEstudiante, $this->id);
+        $param = array($idEstudiante, $this->id, $this->id_plan);
         $cmd = $this->db->query($sql, $param);
 
         if ($cmd->num_rows > 0) {
@@ -132,59 +158,117 @@ class Asignatura_m extends CI_Model {
                         "tipo"=>"CURSO",
                         "id_curso"=>$valor["id_curso"]
                     );
-        }
+        } else {
         
-        $valor = $this->examen_aprobado($idEstudiante);
+            $valor = $this->examen_aprobado($idEstudiante);
         
-        if ($valor["aprobado"]) {
-            $salida = array("aprobado"=>TRUE,
+            if ($valor["aprobado"]) {
+                $salida = array("aprobado"=>TRUE,
                         "tipo"=>"EXAMEN",
                         "id_examen"=>$valor["id_examen"]
                     );
+            }    
         }
         
         return $salida;
     }
     
-        private function _get_previas() {
+     // determina si el estudiante aprobó la previas del curso
+    function aprobo_previas($idEstudiante) {
 
+        $salida = array("estado"=>TRUE,"previas"=>array());
 
-        $sql = "SELECT DISTINCT  a.nombre_asignatura AS nombre , a.id_asignatura AS id
-                FROM previas p 
-                INNER JOIN previas_asignaturas pa 
-                ON pa.id_previa = p.id_previa 
-		INNER JOIN asignaturas a 
-                ON a.id_asignatura = pa.id_asignatura
-		WHERE p.id_asignatura=? ";
+        $this->previas = array();
 
-        $param = array("p.id_asignatura" => $this->id);
-
-        $cmd = $this->db->query($sql, $param);
-        $this->previas = $cmd->result();
-    }
-    
-    public function get_previas(){
-         if (is_null($this->previas)) {
-            $this->_get_previas();
+        // las previas son asignaturas
+        foreach ($this->get_previas() as $previa) {
+            
+            $valor = $this->_asignatura_aprobada($previa,$idEstudiante); 
+            
+            if (!$valor["aprobado"]) {
+                
+                $aux = array("id_previa"=>$previa,
+                                "tipo"=>"examen",
+                                "id_asignatura"=>$this->id_asignatura,
+                                "periodo"=>$this->periodo);
+                $salida["previas"][] = $aux;
+            }
         }
-
-        return $this->previas;
         
+        return $salida;
+    }    
+
+    private function _asignatura_aprobada($idAsignatura,$idEstudiante) {
+
+        $this->load->model("asignatura_m");
+        $asignatura = $this->asignatura_m->get($idAsignatura,
+                                                 $this->id_plan);
+        $valor = $asignatura->aprobada($idEstudiante);
+        return $valor["aprobado"];
+    }
+  
+
+  private function _get_previas() {
+
+      if (!empty($this->id_previa)) {
+        $this->load->model("previa_m");
+        $this->previas = $this->previa_m->get($this->id_previa)->to_array();
+        return;
+      }
+      
+      $this->previas = array();
     }
     
-        function get_previas_ajax(){
-   $salida=$this->get_previas();
-    foreach ($salida as $fila) {
-        
-        if (count($fila) > 0) {
-            echo "{ \"nombre\" : \"" . $fila->nombre . "\", " .
-            " \"id\" : \"" . $fila->id ."\" };";
-        } else
-            echo "{ \"nombre\" : \", \"id\" : \"\"};";
+    private function _get_escala() {
+    
+        $this->load->model("escala_m");
+        $this->escala = $this->escala_m->get($this->id_escala);
         
     }
-    }
+ 
+    /*
+     * @desc Lista de estudiantes que tienen por lo menos una aprobación
+     *              de asignatura dentro del plan idPlan 
+     * @return arreglo que incluye la ID del estuidante, y la ID del curso o 
+     *          examen 
+     */
+    public function get_aprobaron_asignatura($idPlan) {
+    
+            $sql = "SELECT DISTINCT id_estudiante AS id, id_asignatura, id_acta, tipo, periodo
+                FROM 
+                        (SELECT id_estudiante,id_asignatura,c.id_curso AS id_acta,
+                                \"CURSO\" AS tipo, anio_lectivo AS periodo 
+                            FROM cursos c
+                            INNER JOIN cursos_estudiantes ec 
+                            ON c.id_curso = ec.id_curso 
+                            WHERE id_plan = ? AND aprobado = TRUE 
+                    UNION 
+                        SELECT id_estudiante, id_asignatura,e.id_examen AS id_acta,
+                            \"EXAMEN\" AS tipo, id_periodo AS periodo
+                            FROM examenes e 
+                            INNER JOIN examenes_estudiantes ee 
+                            ON e.id_examen = ee.id_examen 
+                            WHERE id_plan=? AND aprobado = TRUE) 
+                AS t
+                ORDER BY id_estudiante";
 
+        $param = array($idPlan, $idPlan);
+        $cmd = $this->db->query($sql, $param);
+        $tabla = $cmd->result_array();
+
+        return $tabla;
+    }
+    
+    public function to_array() {
+        
+        $salida = array("id"=>$this->id,
+                "id_plan"  =>$this->id_plan,
+                "nombre"   =>$this->nombre);
+        
+        $salida["previas"] = $this->get_previas();
+        $salida["escala"]  = $this->get_escala();
+        return $salida; 
+    }
  
 
 }

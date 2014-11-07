@@ -156,27 +156,6 @@ a.btn {
     color:black;
 }
 
-.tabla {
-	border-collapse:collapse;
-    margin-top:15px;
-}
-
-.tabla .encabezado {
-    background:#484848;
-    color:white;
-}
-.tabla .formulario {
-    background:#F0F0F0;
-    color:black;
-}
-
-
-.tabla .encabezado-expandir {
-    background:#484848;
-    color:white;
-    float: end;
-    
-}
 
 .ancho1 {
 	min-width:80%;
@@ -192,6 +171,7 @@ a.btn {
 
 /******** Tablas *************/
 
+/*
 .tabla {
     border-bottom:1px solid DarkGray;
     border-radius:5px;
@@ -203,13 +183,72 @@ a.btn {
     padding:3px;
 }
 
-.tabla  tr {
-	border-bottom: 1px solid #ccc;
+.tabla tr:nth-child(even) {
+	background:#F0F0F0; 
+}
+
+.tabla tr > td:first-of-type {
+    padding-left:1em;
+}
+*/
+
+.tbl {
+    border-collapse:collapse;
+    margin-top:15px;
 }
 
 
+.tbl tr.encabezado {
+    background:#E5E4E2;
+    color:black;
+    border-bottom:1px solid black;
+}
 
-.tabla tr > td:first-of-type {
+.tbl .encabezado td {
+    padding:10px 10px;
+}
+
+.tbl .encabezado a {
+    color:black;
+    /*font-weight: bold;*/
+}
+
+.tbl tr.fila {
+    border-bottom:1px solid LightGray;
+   
+}
+
+.tbl .fila td {
+    padding-left:1em;
+}
+
+.tbl-acordeon {
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+
+.tbl-acordeon tr.encabezado {
+    background:#E5E4E2;
+    color:black;
+    border-bottom:1px solid black;
+}
+
+.tbl-acordeon .encabezado td {
+    padding:10px 10px;
+}
+
+.tbl-acordeon .encabezado a {
+    color:black;
+    /*font-weight: bold;*/
+}
+
+.tbl-acordeon tr.fila {
+    border-bottom:1px solid LightGray;
+    display:none;
+}
+
+.tbl-acordeon .fila td {
     padding-left:1em;
 }
 
@@ -249,17 +288,23 @@ a.btn {
 .arrastrable {}
 
 .dialogo {
-	position:fixed;
+    position:fixed;
     width:440px;
-    height:200px;
+    height:620px;
     display:none;
     background:white;
     z-index:9999;
     padding:20px;
     border:2px solid black;
     border-radius:5px;
-	/*box-shadow:5px 5px 2px black;*/ 
+    box-shadow:15px 15px 10px #888888;
 }
+
+.lst-dos-filas{
+    list-style-type: none;
+    
+}
+
 
 #contenido h1 {
     background:LightGray;

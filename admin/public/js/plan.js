@@ -1,42 +1,77 @@
 
-$(document).ready(function() {
-   
-   
-    for(var i=0;i<5;i++){
-        $("#img"+i).click(expandir);
-    }
-    $(".aImg").click(muestraFrm);
-});
-
-
-function expandir(e) {
-
-	e.preventDefault();
-        var anio=this.id;
-        anio=anio.slice(3,4);
-        var sitio=document.getElementById('urlBase').value;
-        var elems = document.getElementsByClassName('asig'+anio);
-for (var i=0;i<elems.length;i+=1){
-        if($('.asig'+anio)[i].style.display=='none'){
-                document.getElementById("img"+anio).src=sitio+"public/img/menosNaranja.png";
-              $('.asig'+anio)[i].style.display='';
-        }else{
-           $('.asig'+anio)[i].style.display='none'
-            document.getElementById("img"+anio).src=sitio+"public/img/masNaranja.png";
-           $('.formulario[data-anio="'+anio+'"]')[i].style.display='none';
-           $('.aImg[data-anio="'+anio+'"]')[i].src=sitio+"public/img/search.png";
-                     //.style.display='none';
-        }
-        }
-       // if(document.getElementsByClassName(.asig))
-        
+   $(document).ready(function() {
+       iniciar();
+   });
+function iniciar() {
+    $(".aImg").click(buscarAsignatura);
 }
 
-function muestraFrm(e) {
+
+function buscarAsignatura() {
+
+       var id=$(this).attr("data-valor");
+       var plan = $("#id_plan").val();
+
+       var sitio = $("#urlBase").val()+"asignatura/ver/"+id+"/"+plan+"/2";
+
+        $.ajax({
+            url:sitio,
+            dataType:"JSON",
+            type:"GET",
+            success:mostrarAsignatura,
+            error:errorAsignatura
+        });
+
+            
+}
+
+function mostrarAsignatura(data) {
+
+$("#nombre_asignatura").html(data.nombre);
+$("#descripcion").html(data.escala.descripcion);
+$("#min_aprobacion").html(data.escala.min_aprobacion);
+var escala=" <tr> <td>  Numero  </td> <td>  Concepto  </td> <td>  Aprobado  </td></tr> ";
+var nota;
+for (nota in data.escala.notas ){
+    
+  /* escala+="<li>Numero: "+data.escala.notas[nota].numero+
+           " Concepto: "+data.escala.notas[nota].concepto+
+           " Aprobado: ";if(data.escala.notas[nota].aprobado==1){
+               escala+="Aprobado"
+           }else{
+               escala+="No Aprobado";
+           }
+           escala+="</li> ";
+           }*/
+       
+        escala+=" <tr> <td> "+ data.escala.notas[nota].numero+
+                "</td> <td>"+ data.escala.notas[nota].concepto+
+                 "</td> <td>";
+                  if(data.escala.notas[nota].aprobado==1){
+               escala+="Aprobado"
+           }else{
+               escala+="No Aprobado";
+           }
+           escala+="</td></tr> ";
+           }
+$("#lst-escala").html(escala);
+var previa;
+var listaPrevias=" ";
+for (previa in data.previas){
+     listaPrevias+=" <li> "+ data.previas[previa].nombre + " </li> ";
+    
+}
+$("#lst-previas").html(listaPrevias);
+mostrarModal();
+}
+
+function errorAsignatura() {
+    
+}
+
+/*  
 
 	e.preventDefault();
-        var sitio=document.getElementById('urlBase').value;
-         var id=$(this).attr("data-valor");
          if( document.getElementById('frm'+id).style.display=='none'){
                document.getElementById('frm'+id).style.display='';
                 $('.aImg[data-valor="'+id+'"]')[0].src=sitio+"public/img/veo.png";
@@ -48,7 +83,7 @@ function muestraFrm(e) {
         }
         
         }
-        
+*/        
        function cargarPrevias(idAsignatura){
            var table = document.getElementById("tab"+idAsignatura);
            table.innerHTML="";
@@ -71,7 +106,7 @@ function muestraFrm(e) {
    }
    var sitio= document.getElementById("urlBase").value;
    
-   cnn.open("GET",sitio+"asignatura/obtener_previas_ajax/"+idAsignatura,true);   
+   cnn.open("GET",sitio+"_ajax/"+idAsignatura,true);   
    cnn.send(null);
        }
        
@@ -79,6 +114,7 @@ function muestraFrm(e) {
              var table = document.getElementById("tab"+idAsignatura);
              var row = table.insertRow(0);
     var cell1 = row.insertCell(0);
+    cell1.colSpan.innerHTML=3;
     cell1.innerHTML = previa.nombre;
            
        }

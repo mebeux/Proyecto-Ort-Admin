@@ -1,52 +1,37 @@
 <div id="contenido">
-<div class="form centro">
-	<p><label>Nombre:</label><input type="text" name="nombre" /></p>
-	<p><label>Apellido:</label><input type="text" name="nombre" /></p>
-	<p><label>Cédula:</label><input type="text" name="nombre" /></p>
-    <p><label></label><input type="button" class="btn" value="aceptar" /><input type="button" class="btn-gris" value="cancelar" /></p>
-</div>
-<table class="tabla centro ancho2">
-<tr><th>#</th><th>nombre </th><th>apellido</th></tr>
-<tr><td class="txt-centro">#</td><td>Juan   </td><td>Pérez</td></tr>
-<tr><td class="txt-centro">#</td><td>Alfonso</td><td>Rodríguez</td></tr>
-<tr><td class="txt-centro">#</td><td>Laura  </td><td>González</td></tr>
-</table>
-<div class="panel">
-	<div class="panel-titulo">Panel 1</div>
-	<div class="panel-cuerpo">
-	Dinanzi a me si fu offereto qui per lungo silenzio parea fiocco. Quando vidi costui nell gran disserto "misere da me, gridai a lui, qualque tu sia, 
-	ombra od homo certo". Homo non giá, homo fui, e i miei parenti eravan Lombradi, mantovani per patria ambedui. Sono natto sub Iulio, e vidi a Roma
-	sul bon Augusto, nel tempo de i dei falsi e buggiardi. Poeta fui e canti di quel figliol d'Anchise, qui vienne da Troia, poi que superbo Ilion fu
-	combusto.
-</div>
-</div> <!-- fin panel -->
-<ul class="lst-desp">
-<li><div class="encab-lst-desp">Opción 1</div>
-	<ul class="lst-sub">
-		<li>Subopción 1.1</li>
-		<li>Subopción 1.2</li>
-		<li>Subopción 1.3</li>
-		<li>Subopción 1.4</li>
-		<li>Subopción 1.5</li>
-	</ul>
-</li>
-<li><div class="encab-lst-desp">Opción 2</div>
-	<ul class="lst-sub">
-		<li>Subopción 1.1</li>
-		<li>Subopción 1.2</li>
-		<li>Subopción 1.3</li>
-		<li>Subopción 1.4</li>
-		<li>Subopción 1.5</li>
-	</ul>
-</li>
-</ul>
-<input type="button" id="btn-modal" class="btn" value="modal" />
+    <h1>Periodos</h1>
+    <table class="tbl centro ancho2">
+        <tr class="encab-lst-desp"><th>mes</th><th>año</th><th>unidad de proyecto</th><th>actual</th><th>ver</th></tr>
+        <?php
+          $fila="";
+        foreach ($periodos as $periodo) {
+           
+            $fila.= " <tr class=\"fila\" style=\"display: table-row;\" ><td class=\"txt-centro\">" . substr($periodo->periodo, -4, 2) . "</td>"
+               . "<td class=\"txt-centro\">" . $periodo->anio . "</td>" 
+               . "<td class=\"txt-centro\">";
+               if($periodo->unidad_proyecto==1){
+                   $fila.="SI";
+               }else{
+                   $fila.="NO";
+               }
+                  $fila.= "</td>" 
+                . "<td class=\"txt-centro\">";
+               if($periodo->actual==1){
+                   $fila.="SI";
+               }else{
+                   $fila.="NO";
+               }
+                  $fila.= "</td>" 
+               . "<td class=\"txt-centro centro\">" . anchor("periodo/ver/{$periodo->periodo}",
+                    "<img src=\"" . base_url() . "public/img/search.png\" />")."</td></tr>";
+                 
+        }
+         echo $fila;
+        ?>
+    </table>
+    <input type="hidden" id="urlBase" name="Base" value="<?php echo base_url(); ?>">
+    <input type="hidden" class="indi" id="ind" name="In" value="1">
 </div>
 </div>
-<div class="dialogo" id="dialogo">
-<a href=# class="cerrar">cerrar</a>
-<p>
-Questo la caccerá per ogni villa, infin che la avea rimesso nell inferno, ove invidia prima dipartilla
-<p>
-</div>
+
 <div id="mascara"></div>

@@ -48,29 +48,8 @@ class Plan_m extends CI_Model {
      *          examen 
      */
     public function get_aprobaron_asignatura() {
-
-        $sql = "SELECT DISTINCT id_estudiante AS id, id_asignatura, tipo, periodo
-                FROM 
-                    (SELECT id_estudiante,id_asignatura,
-                            \"CURSO\" AS tipo, anio_lectivo AS periodo 
-                        FROM cursos c
-                        INNER JOIN cursos_estudiantes ec 
-                        ON c.id_curso = ec.id_curso 
-                        WHERE id_plan = ? AND aprobado = TRUE 
-                    UNION SELECT id_estudiante, id_asignatura,
-                            \"EXAMEN\" AS tipo, anio_lectivo AS periodo
-                        FROM examenes e 
-                        INNER JOIN examenes_estudiantes ee 
-                        ON e.id_examen = ee.id_examen 
-                        WHERE id_plan=? AND aprobado = TRUE) 
-                AS t
-                ORDER BY id_estudiante";
-
-        $param = array($this->id, $this->id);
-        $cmd = $this->db->query($sql, $param);
-        $tabla = $cmd->result();
-
-        return $tabla;
+        $this->load->model("asignatura_m");
+        return $this->asignatura_m->get_aprobaron_asignatura($this->id);
     }
         
 
@@ -83,35 +62,72 @@ class Plan_m extends CI_Model {
 
         $tabla = $this->get_aprobaron_asignatura();
         $salida = array();
-
-        $this->load->model("edicion_asignatura_m");
         
         foreach ($tabla as $fila) {
-             $edicion_asignatura = $this->edicion_asignatura_m->get($fila["periodo"]);
-             $valor = $edicion_asignatura->aprobo_previas();
-             
-             if ($valor["error"]) {
-                 $salida[] = array("id_estudiante"=>$fila["id_estudiante"],
-                     "id_asignatura"=>$fila["id_asignatura"],
-                     "nombre_asignatura"=>$edicion_asignatura->get_nombre(),
-                     "id_periodo"  =>$fila["periodo"],
-                     "id_previa"   =>$valor["id_previa"],
-                     "nombre_previa"=>$valor["nombre_previa"]);
-             }
-        }
 
+            $edicion = $this->_get_edicion($fila["tipo"],
+                        $fila["id_asignatura"],
+                        $fila["periodo"]);
+            
+            // si la edición no está definida obtiene las previas del plan
+            if (is_null($edicion)) {
+                $edicion = $this->get_asignatura($fila["id_asignatura"]);
+            }
+            
+            $valor = $edicion->aprobo_previas($fila["id"]);
+
+            if (!$valor["estado"]) {
+                $salida[] = $this->_cargar_error_previas($fila,
+                                 $valor,
+                                 $edicion->get_nombre());
+            }
+        }    
+            
         return $salida;
     }
 
+    /*
+     *   @desc Obtiene la edición del plan o el periódo correspondiente, es invocada
+     *          por get_previas_sin_aprobar
+     * 
+     */
+    private function _get_edicion($tipo,$idAsignatura,$idPeriodo) {
+        
+        if (strtolower($tipo)=="curso") {
+            $this->load->model("edicion_asignatura_m");
+            $salida = $this->edicion_asignatura_m;
+        } else {        
+            $this->load->model("periodo_asignatura_m");
+            $salida = $this->periodo_asignatura_m;
+        }
+        return $salida->get($idAsignatura,$this->id,$idPeriodo);
+    }
+        
+    
+    private function _cargar_error_previas($fila,$valor,$nombreAsignatura) {
+
+        $this->load->model("estudiante_m");
+        $estudiante = $this->estudiante_m->get($fila["id"]);
+        
+        $nombreEstudiante = "{$estudiante->nombre} {$estudiante->apellido}";
+        
+        $salida =   array(  "id_estudiante"=>$fila["id"],
+                            "nombre"=>$nombreEstudiante,
+                            "id_asignatura"=>$fila["id_asignatura"],
+                            "asigantura"=>$nombreAsignatura,
+                            "id_periodo"  =>$fila["periodo"],
+                            "previas"   =>$valor["previas"]);
+        return $salida;
+    }
+    
     private function _get_asignaturas() {
 
-
         $sql = "SELECT a.id_asignatura AS id, a.nombre_asignatura AS nombre, pa.* 
-            FROM asignaturas a
-            INNER JOIN plan_asignaturas pa 
-            ON pa.id_asignatura = a.id_asignatura
-            WHERE pa.id_plan=?  
-            ORDER BY pa.anio_asignatura ASC, pa.teorica DESC, a.nombre_asignatura";
+                    FROM asignaturas a
+                    INNER JOIN plan_asignaturas pa 
+                    ON pa.id_asignatura = a.id_asignatura
+                    WHERE pa.id_plan=?  
+                    ORDER BY pa.anio_asignatura ASC, pa.teorica DESC, a.nombre_asignatura";
 
         $param = array("id_plan" => $this->id);
 
@@ -119,6 +135,11 @@ class Plan_m extends CI_Model {
         $this->asignaturas = $cmd->result();
     }
 
+    private function get_asignatura($idAsignatura) {
+        $this->load->model("asignatura_m");
+        return $this->asignatura_m->get($idAsignatura,$this->id);
+    }
+    
     public function get_asignaturas() {
 
         if (is_null($this->asignaturas)) {

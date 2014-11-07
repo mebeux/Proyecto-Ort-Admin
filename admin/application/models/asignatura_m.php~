@@ -5,8 +5,8 @@ class Asignatura_m extends CI_Model {
     public $id;
     public $nombre;
     public $previas = null;
-
- public function traer($id_asignatura) {
+    
+ public function traer($idAsignatura) {
         
         $aux = new asignatura_m();
         
@@ -132,30 +132,21 @@ class Asignatura_m extends CI_Model {
                         "tipo"=>"CURSO",
                         "id_curso"=>$valor["id_curso"]
                     );
-        }
+        } else {
         
-        $valor = $this->examen_aprobado($idEstudiante);
+            $valor = $this->examen_aprobado($idEstudiante);
         
-        if ($valor["aprobado"]) {
-            $salida = array("aprobado"=>TRUE,
+            if ($valor["aprobado"]) {
+                $salida = array("aprobado"=>TRUE,
                         "tipo"=>"EXAMEN",
                         "id_examen"=>$valor["id_examen"]
                     );
+            }    
         }
         
         return $salida;
     }
 
-    public function traer_asignaturas_plan($id_plan){
-         
-        $sql="SELECT a.id_asignatura, a.nombre_asignatura, pa.* FROM asignaturas a
-INNER JOIN plan_asignaturas pa ON pa.id_asignatura = a.id_asignatura
-WHERE pa.id_plan=\"".$id_plan."\"  ORDER BY pa.anio_asignatura ASC, pa.teorica DESC;";
-        $cmd  = $this->db->query($sql);
-        $lista = $cmd->result();
-        return $lista;
-    }
-    
-
+ 
 
 }

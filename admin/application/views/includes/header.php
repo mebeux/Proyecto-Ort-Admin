@@ -4,8 +4,17 @@
 	<meta charset="utf8" />
 	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/jquery.js"></script>
 	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/jquery-ui.min.js"></script>
-	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/modal.js"></script>
-        <script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/plan.js"></script>
+	<script type="text/javascript" language="Javascript" src="<?php echo base_url()?>public/js/estilo.js"></script>
+        <?php
+        
+            if (isset($js)) {
+        
+                foreach($js as $j) {
+                    echo "<script type=\"text/javascript\" language=\"Javascript\" src=\"".
+                        base_url()."public/js/$j.js\"></script>\n";    
+                }
+            }    
+        ?>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>public/css/estilo.css" />
 </head>
 <body>

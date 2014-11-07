@@ -4,18 +4,27 @@ class Previa extends CI_Controller {
 
     public function index() {
 
-        $idPlan = 1;
+        $data["vista"] = array("previa/index","previas");
+        $data["menu"] = array("previa/menu","inicio");
         
         $this->load->model("plan_m");
-
-        $plan = $this->plan_m->get($idPlan);
+        $data["planes"] = $this->plan_m->get_todo();
         
-        $data["estudiantes"] = $plan->get_aprobaron_asignatura();
-        
-        $data["vista"] = array("previa/index","ediciones");
-        $data["menu"] = array("previa/menu","inicio");
         $this->load->view("template",$data);
     }
 
+    public function plan($idPlan) {
+ 
+        $this->load->model("plan_m");
+        $plan = $this->plan_m->get($idPlan);
+        
+        if (!empty($plan)) {
+            $data["informe"] = $plan->get_previas_sin_aprobar();
+        } else {
+            $data["informe"] = array();
+        }   
+
+        $this->load->view("previa/error_plan_json",$data);
+    }
     
 }

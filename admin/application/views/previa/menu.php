@@ -8,10 +8,15 @@
 			<li <?php if ($op=="inicio") echo " class=\"active\""; ?>>
                             <a href="#">Inicio</a>
                         </li>
-			<li><a href="#">Crear</a></li>
-			<li><a href="#">Opción 7</a></li>
-			<li><a href="#">Opción 8</a></li>
+                        <?php
+                            foreach($planes as $plan) {
+                                echo "<li><a href=\"#\" 
+                                     class=\"errores-plan\" data-valor=\"{$plan->id}\">
+                                     {$plan->nombre}</a></li>\n"; 
+                            }
+                        ?>
 		</ul>
 	</nav>
 
 </div>
+
